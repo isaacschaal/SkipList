@@ -23,9 +23,13 @@ A key can be found in the skip list (if it is present) with an average case time
 An example of a skip list is displayed below (initiated with N = 20):
 
 Skip List
-Level 0:  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+
+Level 0:  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+
 Level 1:  3 4 5 10 13 15 16 19 20 
+
 Level 2:  5 10 
+
 Level 3:  5 10 
 
 The keys 1-20 have been inserted into the Skip List. Imagine we wish to see if the key 15 is in the skip list. If we had an ordinary list (represented by the level 0), we would have to check each element in the list (with a time complexity of O(n)). In this specific example, we would make 15 checks before we find the key 15.
