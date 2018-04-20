@@ -4,17 +4,16 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+
 
 setup(
     name='SkipList',
-    packages = ['SkipList'],
+    packages=find_packages(exclude=['random', 'math']),
+
 
     version='1.0.0',
 
     description='A skip list implemetation',
-    long_description=long_description,
 
     url='https://github.com/isaacschaal/SkipList',
 
@@ -34,7 +33,7 @@ setup(
 
     keywords='Skip List Sorting',
 
-    install_requires=['random'],['math']
+
 
    
 )
