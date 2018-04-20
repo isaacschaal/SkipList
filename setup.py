@@ -9,6 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='SkipList',
+    packages = ['SkipList'],
 
     version='1.0.0',
 
@@ -32,7 +33,6 @@ setup(
 
 
     keywords='Skip List Sorting',
-    packages=find_packages(),
 
     install_requires=['random'],['math']
 
