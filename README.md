@@ -77,8 +77,9 @@ Pugh, William. Skip lists: a probabilistic alternative to balanced trees. In: Co
 Follow example.py for an example of functionality.
 
 ## Prerequisite
-`import random
-import math`
+`import random`
+
+`import math`
 
 # Authors
 Isaac Schaal
