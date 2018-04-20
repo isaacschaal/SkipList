@@ -38,10 +38,29 @@ With our skip list, we would start on level 3, check 5 and 10 and see that 10 is
 
 ## Analysis
 
-There are two important aspects of the skip list that make the implementation function. Firstly, each element inserted into the Skip List is a node ( a `_SkipNode`) which contains the key and a list, called `next`. This list contains the next element after the key on each level that the key is present on. When a key is inserted or deleted, the appropriate next lists are updated.  
+There are two important aspects of the skip list that make the implementation function. Firstly, each element inserted into the Skip List is a node ( a `_SkipNode`) which contains the key and a list, called `next`. This list contains the next element after the key on each level that the key is present on. When a key is inserted or deleted, the appropriate next lists are updated. A Skip List is initialized with a Head node, which has no key and starts with a level of 0. As more keys are added, its next list is updated and it is where we start our operations. Each key that is added is given a random number of levels, where the probability of a key with level i having level i+1 is p (which is set to p= 0.5 in this ipmlementation). The number of levels is also capped at log base (1/p) of the number of levels n, where n is specified as the expected number of keys to be stored in the list, and must be inputted when creating a skip list. For simplicity, we will define L(n) = log base (1/p) of  n.
 
-This is done by creating an update list. This is the central function of the Skip List, as the other operations depend on it and it creates the average case time complexity of O(lgn). 
+This is done by creating an update list. This is the central function of the Skip List, as the other operations depend on it and it creates the average case time complexity of O(lgn). The update function starts at the higest level and starts at the leftmost node. It advances to the right until it finds the first node whose next value is equal to or greater than the key in focus. This value is recorded and it advances to the level below. The process is repeated, and the final output is an update list, which contains the keys at each level which are just before where the focus key may be located. This update list is then used for the other functions. If a key is to be found, the next value of the lowest level in the update function is checked, as if the key is present it will be there. If a key is being inserted, the next value of all keys in the update list is changed to the inserted key and the inserted key takes the next value of the keys in the update list. If a key is to be delted, the opposite happens, where the next values of the update list are replaced by the deleted keys next values.
 
+### Time Complexity Analysis
+
+To show that we have an expected cost of O(lgn) for the update list function, we will analyze the path that it takes. We can imagine that the path is represented by a series of movements, either one to the right or one level down. If we analyze this path backwards, it becomes one movement up or one movement to the left. At any particular point in the climb, we are at the level i of key x. We don't know how many levels nodes to the left of x have, and we don't know how many levels x has (other than it must be i). If we assume that x is not the Head node (assume the list extends infintely), there are two scenarios. There is A, where the level of x is equal to i, and we must move one to the left. Alternatively we have scenario B, where the level of x is greater than i, and me must move one level up.  The probability that we are in situation B is p (in this implementaion p = 0.5). We climb one level each time we are in situation B. We can let C(k) = the expected cost of a search path that climbs k levels.
+
+We know that C(0) = 0, and that C(k) = (1-p)(cost of scenario A) + (p)(cost of scenario B).
+
+We know that the cost of scenario A is 1 + C(k) as it moves one to the left and nothing up. We also know that the cost of scenario B is 1 + c(k-1), as we move one up and nothing left.
+
+Thus we get the equation:
+
+C(k) = (1-p)(1+C(k)) + p(1+C(k-1))
+
+C(k) = 1/p + C(k-1)
+
+C(k) = k/p
+
+We have bounded the maximum number of levels to be L(n) = log base (1/p) of n which in our case is log_2 (n). Thus, the maximum cost is 
+
+log_2(n) / p, which is O(logn) time complexity.
 
 # Implementation 
 
